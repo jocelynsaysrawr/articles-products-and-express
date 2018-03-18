@@ -1,21 +1,26 @@
 {
   "name": "articles-products-and-express",
   "version": "1.0.0",
-  "description": "## Tests Let the **tests drive your development** or write your tests after. The choice is up to you! As for the testing tools use:   - [mocha](https://mochajs.org/)   - [chai](https://chaijs.com/)   - [supertest](https://github.com/visionmedia/supertest)     - [supertest is built upon `superagent` so these docs will be helpful as well](https://github.com/visionmedia/superagent)",
+  "description":
+    "## Tests Let the **tests drive your development** or write your tests after. The choice is up to you! As for the testing tools use:   - [mocha](https://mochajs.org/)   - [chai](https://chaijs.com/)   - [supertest](https://github.com/visionmedia/supertest)     - [supertest is built upon `superagent` so these docs will be helpful as well](https://github.com/visionmedia/superagent)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/test.js --watch",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jocelynsaysrawr/articles-products-and-express.git"
+    "url":
+      "git+https://github.com/jocelynsaysrawr/articles-products-and-express.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jocelynsaysrawr/articles-products-and-express/issues"
+    "url":
+      "https://github.com/jocelynsaysrawr/articles-products-and-express/issues"
   },
-  "homepage": "https://github.com/jocelynsaysrawr/articles-products-and-express#readme",
+  "homepage":
+    "https://github.com/jocelynsaysrawr/articles-products-and-express#readme",
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.0.4",
