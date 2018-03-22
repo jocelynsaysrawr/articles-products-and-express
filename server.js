@@ -6,15 +6,14 @@ const handlebars = exphbs.create({
   defaultLayout: "main",
   extname: ".hbs"
 });
+const products = require("./routes/products");
 
 const PORT = process.env.PORT || 8080;
 
 app.engine(".hbs", handlebars.engine);
 app.set("view engine", ".hbs");
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.use(products);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
