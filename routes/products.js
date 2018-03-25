@@ -25,7 +25,12 @@ router
     return res.render("new");
   })
   .get("/products/:id", (req, res) => {
-    return res.render("product", { currBody, currID });
+    return res.render("product", {
+      id: currID,
+      name: currBody.name,
+      price: currBody.price,
+      inventory: currBody.inventory
+    });
   })
   .get("/products/:id/edit", (req, res) => {
     return res.render("edit");
@@ -36,6 +41,8 @@ router.post("/products", (req, res) => {
   const { name, price, inventory } = body;
   currBody = body;
   currID = newProd.addProduct(name, price, inventory);
+  console.log("currBody", currBody);
+  console.log("currID", currID);
   console.log("allProds", allProds);
   return res.redirect(`/products/${currID}`);
 });
