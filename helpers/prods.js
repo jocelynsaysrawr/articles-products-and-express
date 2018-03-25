@@ -9,7 +9,15 @@ class ProductList {
   }
 
   addProduct(name, price, inventory) {
-    this._storage.push({ name, price, inventory });
+    const currID = this._id;
+    this._storage.push({
+      id: this._id,
+      name,
+      price,
+      inventory
+    });
+    this._id++;
+    return currID;
     // return this.getAllProducts();
   }
 }

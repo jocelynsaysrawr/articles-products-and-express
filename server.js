@@ -7,7 +7,6 @@ const handlebars = exphbs.create({
   extname: ".hbs"
 });
 const products = require("./routes/products");
-const Product = require("./helpers/prods");
 
 const PORT = process.env.PORT || 8080;
 

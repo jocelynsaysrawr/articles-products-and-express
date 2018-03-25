@@ -4,7 +4,13 @@ const bodyParser = require("body-parser");
 const { ProductList } = require("../helpers/prods");
 
 const newProd = new ProductList();
+const allProds = newProd.getAllProducts();
+const names = allProds.map(obj => obj.name);
+
 module.exports = router;
+
+let currBody;
+let currID;
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
@@ -12,11 +18,14 @@ router
   .get("/", (req, res) => {
     return res.render("index");
   })
+  .get("/products/all", (req, res) => {
+    return res.render("allProducts", { allProds });
+  })
   .get("/products/new", (req, res) => {
     return res.render("new");
   })
   .get("/products/:id", (req, res) => {
-    return res.render("product");
+    return res.render("product", { currBody, currID });
   })
   .get("/products/:id/edit", (req, res) => {
     return res.render("edit");
@@ -24,7 +33,13 @@ router
 
 router.post("/products", (req, res) => {
   const { body } = req;
-  newProd.addProduct(body.name, body.price, body.inventory);
-  console.log("products", newProd.getAllProducts());
-  return res.json(req.body);
+  const { name, price, inventory } = body;
+  currBody = body;
+  currID = newProd.addProduct(name, price, inventory);
+  console.log("allProds", allProds);
+  return res.redirect(`/products/${currID}`);
 });
+
+const getById = arr => {
+  arr.filter;
+};
