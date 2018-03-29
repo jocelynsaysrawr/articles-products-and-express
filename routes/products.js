@@ -39,16 +39,14 @@ router
   });
 
 router.post("/products", (req, res) => {
-  const { body } = req;
-  const { name, price, inventory } = body;
+  const { name, price, inventory } = req.body;
   const id = newProd.getId();
   newProd.addProduct(name, price, inventory);
   return res.redirect(`/products/${id}`);
 });
 
 router.put("/products/:id/edit", (req, res) => {
-  const { body } = req;
-  const { name, price, inventory } = body;
+  const { name, price, inventory } = req.body;
   const id = Number(req.params.id);
   newProd.updateProduct(id, name, price, inventory);
   return res.redirect(`/products/${id}`);
