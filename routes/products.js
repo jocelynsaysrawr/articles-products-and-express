@@ -9,9 +9,6 @@ const names = allProds.map(obj => obj.name);
 
 module.exports = router;
 
-let currBody;
-let currID;
-
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router
@@ -25,11 +22,19 @@ router
     return res.render("new");
   })
   .get("/products/:id", (req, res) => {
+    console.log("req.paramsGET: ", req.params);
+    console.log("allProdsGET: ", allProds);
+    const bodyData = allProds.filter(elem => {
+      console.log("elem: ", elem);
+      return elem.id === Number(req.params.id);
+    });
+    console.log("bodyData", bodyData);
+    //console.log("allProds", allProds);
     return res.render("product", {
-      id: currID,
-      name: currBody.name,
-      price: currBody.price,
-      inventory: currBody.inventory
+      id: req.params.id,
+      name: bodyData[0].name,
+      price: bodyData[0].price,
+      inventory: bodyData[0].inventory
     });
   })
   .get("/products/:id/edit", (req, res) => {
@@ -38,15 +43,21 @@ router
 
 router.post("/products", (req, res) => {
   const { body } = req;
+  //console.log("body: ", body);
   const { name, price, inventory } = body;
-  currBody = body;
-  currID = newProd.addProduct(name, price, inventory);
-  console.log("currBody", currBody);
-  console.log("currID", currID);
-  console.log("allProds", allProds);
-  return res.redirect(`/products/${currID}`);
+  const id = newProd.getId();
+  //console.log("id: ", id);
+  newProd.addProduct(name, price, inventory);
+  return res.redirect(`/products/${id}`);
 });
 
-const getById = arr => {
-  arr.filter;
-};
+router.put("/products/:id/edit", (req, res) => {
+  const { body } = req;
+  const { name, price, inventory } = body;
+  const id = Number(req.params.id);
+  console.log("body: ", body);
+  console.log("params: ", req.params);
+  newProd.updateProduct(id, name, price, inventory);
+  console.log("allProdsPut: ", allProds);
+  return res.redirect(`/products/${id}`);
+});
