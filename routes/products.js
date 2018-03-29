@@ -16,7 +16,9 @@ router
     return res.render("allProducts", { allProds });
   })
   .get("/products/new", (req, res) => {
-    return res.render("new");
+    return res.render("new", {
+      product: true
+    });
   })
   .get("/products/:id", (req, res) => {
     const bodyData = allProds.filter(obj => obj.id === Number(req.params.id));

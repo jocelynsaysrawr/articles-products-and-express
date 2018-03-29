@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const { ArticleList } = require("../helpers/articles");
+
+const newArticleList = new ArticleList();
+const allArticles = newArticleList.getAllArticles();
 
 module.exports = router;
 
@@ -11,11 +15,24 @@ router
     return res.render("allArticles");
   })
   .get("/articles/new", (req, res) => {
-    return res.render("new");
+    return res.render("new", {
+      article: true
+    });
   })
   .get("/articles/:title", (req, res) => {
-    return res.render("article");
+    const bodyData = allArticles.filter(obj => obj.title === req.params.title);
+    return res.render("article", {
+      title: bodyData[0].title,
+      content: bodyData[0].content,
+      author: bodyData[0].author
+    });
   })
   .get("/articles/:title/edit", (req, res) => {
     return res.render("edit");
   });
+
+router.post("/articles", (req, res) => {
+  const { title, content, author } = req.body;
+  newArticleList.addArticle(title, content, author);
+  return res.redirect(`/articles/${title}`);
+});

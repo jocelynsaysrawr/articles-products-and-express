@@ -1,1 +1,9 @@
-<h1>allArticles.hbs</h1>
+<h1>All Articles</h1>
+<ul>
+    {{#each allArticles}}
+    <li>{{titles}}</li>
+    {{/each}}
+</ul>
+
+<a href="/">Home</a>
+<a href="/articles/new">Add Article</a>
