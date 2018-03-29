@@ -8,6 +8,7 @@ const handlebars = exphbs.create({
   extname: ".hbs"
 });
 const products = require("./routes/products");
+const articles = require("./routes/articles");
 
 const PORT = process.env.PORT || 8080;
 
@@ -28,6 +29,7 @@ app.use(
   })
 );
 app.use(products);
+app.use(articles);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
