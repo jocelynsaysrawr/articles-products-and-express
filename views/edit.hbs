@@ -1,15 +1,15 @@
 <h1>Edit Me</h1>
 
-<form action="/products/{{id}} method=" post ">
-    Name:
+<form action="/products/{{id}}" method="post">
+    <input type="hidden" name="_method" value="PUT"> Name:
     <br>
-    <input type="text " name="name " value="{{name}} ">
+    <input type="text" name="name" value="{{name}}">
     <br> Price:
     <br>
-    <input type="text " name="price " value="{{price}} ">
+    <input type="text" name="price" value="{{price}}">
     <br> Inventory:
     <br>
-    <input type="text " name="inventory " value="{{inventory}} ">
+    <input type="text" name="inventory" value="{{inventory}}">
     <br>
     <button>Submit</button>
 </form>

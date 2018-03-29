@@ -56,5 +56,5 @@ router.delete("/products/:id", (req, res) => {
   const id = Number(req.params.id);
   newProd.deleteProduct(id);
   console.log("allProdsDelete: ", allProds);
-  return res.redirect("/products/all");
+  return res.redirect("/products");
 });
