@@ -32,6 +32,8 @@ router
   .get("/products/:id/edit", (req, res) => {
     const formData = allProds.filter(obj => obj.id === Number(req.params.id));
     return res.render("edit", {
+      id: req.params.id,
+      product: true,
       name: formData[0].name,
       price: formData[0].price,
       inventory: formData[0].inventory

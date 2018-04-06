@@ -35,6 +35,7 @@ class ProductList {
     productToUpdate[0].name = name;
     productToUpdate[0].price = price;
     productToUpdate[0].inventory = inventory;
+    console.log("productToUpdate[0]", productToUpdate[0]);
     this._storage.splice(index, 1, productToUpdate[0]);
   }
 

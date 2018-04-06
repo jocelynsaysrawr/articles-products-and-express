@@ -1,6 +1,7 @@
+{{#if product}}
 <h1>Edit Me</h1>
 
-<form action="/products/{{id}}" method="post">
+<form action="/products/{{id}}/edit" method="post" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="_method" value="PUT"> Name:
     <br>
     <input type="text" name="name" value="{{name}}">
@@ -13,3 +14,19 @@
     <br>
     <button>Submit</button>
 </form>
+{{/if}} {{#if article}}
+<h1>Edit Me</h1>
+
+<form action="/articles/{{title}}" method="post">
+    <input type="hidden" name="_method" value="PUT"> Title:
+    <br>
+    <input type="text" name="name" value="{{title}}">
+    <br> Content:
+    <br>
+    <input type="text" name="price" value="{{content}}">
+    <br> Author:
+    <br>
+    <input type="text" name="inventory" value="{{author}}">
+    <br>
+    <button>Submit</button>
+    {{/if}}
