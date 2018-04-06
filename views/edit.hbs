@@ -17,16 +17,17 @@
 {{/if}} {{#if article}}
 <h1>Edit Me</h1>
 
-<form action="/articles/{{title}}" method="post">
+<form action="/articles/{{title}}/edit" method="post" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="_method" value="PUT"> Title:
     <br>
-    <input type="text" name="name" value="{{title}}">
+    <input type="text" name="title" value="{{title}}">
     <br> Content:
     <br>
-    <input type="text" name="price" value="{{content}}">
+    <input type="text" name="content" value="{{content}}">
     <br> Author:
     <br>
-    <input type="text" name="inventory" value="{{author}}">
+    <input type="text" name="author" value="{{author}}">
     <br>
     <button>Submit</button>
-    {{/if}}
+</form>
+{{/if}}

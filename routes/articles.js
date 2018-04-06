@@ -12,7 +12,7 @@ router
     return res.render("index");
   })
   .get("/articles", (req, res) => {
-    return res.render("allArticles");
+    return res.render("allArticles", { allArticles });
   })
   .get("/articles/new", (req, res) => {
     return res.render("new", {
@@ -28,11 +28,23 @@ router
     });
   })
   .get("/articles/:title/edit", (req, res) => {
-    return res.render("edit");
+    const formData = allArticles.filter(obj => obj.title === req.params.title);
+    return res.render("edit", {
+      article: true,
+      title: formData[0].title,
+      content: formData[0].content,
+      author: formData[0].author
+    });
   });
 
 router.post("/articles", (req, res) => {
   const { title, content, author } = req.body;
   newArticleList.addArticle(title, content, author);
+  return res.redirect(`/articles/${title}`);
+});
+
+router.put("/articles/:title/edit", (req, res) => {
+  const { title, content, author } = req.body;
+  newArticleList.updateArticle(title, content, author);
   return res.redirect(`/articles/${title}`);
 });
