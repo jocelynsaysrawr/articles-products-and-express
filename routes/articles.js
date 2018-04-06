@@ -48,3 +48,9 @@ router.put("/articles/:title/edit", (req, res) => {
   newArticleList.updateArticle(title, content, author);
   return res.redirect(`/articles/${title}`);
 });
+
+router.delete("/articles/:title", (req, res) => {
+  const title = req.params.title;
+  newArticleList.deleteArticle(title);
+  return res.redirect("/articles");
+});

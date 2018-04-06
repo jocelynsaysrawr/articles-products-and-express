@@ -2,3 +2,11 @@
 <h2>By: {{author}}</h2>
 
 <p>{{content}}</p>
+<a href="/articles/{{title}}/edit">Edit</a>
+<a href="/articles/new">Add New Article</a>
+<a href="/articles">View All Articles</a>
+<form action="/articles/{{title}}" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">DELETE!!</button>
+</form>
+<a href="/">Home</a>

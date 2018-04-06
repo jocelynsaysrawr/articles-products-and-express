@@ -30,6 +30,11 @@ class ArticleList {
     articleToUpdate[0].author = author;
     this._storage.splice(index, 1, articleToUpdate[0]);
   }
+
+  deleteArticle(title) {
+    const index = this._storage.map(obj => obj.title).indexOf(title);
+    this._storage.splice(index, 1);
+  }
 }
 
 module.exports = {
