@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { ProductList } = require("../helpers/prods");
-
-const newProd = new ProductList();
-const allProds = newProd.getAllProducts();
-const names = allProds.map(obj => obj.name);
+const {
+  getAllProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct
+} = require("../db/DS_products");
 
 module.exports = router;
 
@@ -13,7 +14,9 @@ router
     return res.render("index");
   })
   .get("/products", (req, res) => {
-    return res.render("allProducts", { allProds });
+    getAllProducts().then(allProds => {
+      return res.render("allProducts", { allProds });
+    });
   })
   .get("/products/new", (req, res) => {
     return res.render("new", {
@@ -21,42 +24,52 @@ router
     });
   })
   .get("/products/:id", (req, res) => {
-    const bodyData = allProds.filter(obj => obj.id === Number(req.params.id));
-    return res.render("product", {
-      id: req.params.id,
-      name: bodyData[0].name,
-      price: bodyData[0].price,
-      inventory: bodyData[0].inventory
+    getAllProducts().then(productArr => {
+      const bodyData = productArr.filter(
+        obj => obj.product_sku === Number(req.params.id)
+      )[0];
+      return res.render("product", {
+        id: bodyData.product_sku,
+        name: bodyData.product_name,
+        price: bodyData.product_price,
+        inventory: bodyData.product_inventory
+      });
     });
   })
   .get("/products/:id/edit", (req, res) => {
-    const formData = allProds.filter(obj => obj.id === Number(req.params.id));
-    return res.render("edit", {
-      id: req.params.id,
-      product: true,
-      name: formData[0].name,
-      price: formData[0].price,
-      inventory: formData[0].inventory
+    getAllProducts().then(productArr => {
+      const formData = productArr.filter(
+        obj => obj.product_sku === Number(req.params.id)
+      )[0];
+      console.log("formData: ", formData);
+      return res.render("edit", {
+        id: formData.product_sku,
+        product: true,
+        name: formData.product_name,
+        price: formData.product_price,
+        inventory: formData.product_inventory
+      });
     });
   });
 
 router.post("/products", (req, res) => {
   const { name, price, inventory } = req.body;
-  const id = newProd.getId();
-  newProd.addProduct(name, price, inventory);
-  return res.redirect(`/products/${id}`);
+  addProduct(name, price, inventory).then(id => {
+    return res.redirect(`/products/${id[0]}`);
+  });
 });
 
 router.put("/products/:id/edit", (req, res) => {
   const { name, price, inventory } = req.body;
-  const id = Number(req.params.id);
-  newProd.updateProduct(id, name, price, inventory);
-  return res.redirect(`/products/${id}`);
+  const id = req.params.id;
+  updateProduct(id, name, price, inventory).then(sku => {
+    return res.redirect(`/products/${sku}`);
+  });
 });
 
 router.delete("/products/:id", (req, res) => {
   const id = Number(req.params.id);
-  newProd.deleteProduct(id);
-  console.log("allProdsDelete: ", allProds);
-  return res.redirect("/products");
+  deleteProduct(id).then(() => {
+    return res.redirect("/products");
+  });
 });
