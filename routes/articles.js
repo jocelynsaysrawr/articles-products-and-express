@@ -4,7 +4,8 @@ const {
   getAllArticles,
   addArticle,
   getArticleByTitle,
-  updateArticle
+  updateArticle,
+  deleteArticle
 } = require("../db/DS_articles");
 
 module.exports = router;
@@ -61,6 +62,7 @@ router.put("/articles/:title/edit", (req, res) => {
 
 router.delete("/articles/:title", (req, res) => {
   const title = req.params.title;
-  newArticleList.deleteArticle(title);
-  return res.redirect("/articles");
+  deleteArticle(title).then(() => {
+    return res.redirect("/articles");
+  });
 });

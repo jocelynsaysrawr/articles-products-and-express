@@ -12,6 +12,7 @@ const getAllArticles = () => {
   return knex
     .select()
     .from("article")
+    .orderBy("article_id", "asc")
     .then(data => {
       return data;
     });
@@ -47,9 +48,16 @@ const updateArticle = (id, title, content, author) => {
     });
 };
 
+const deleteArticle = title => {
+  return knex("article")
+    .where("article_title", "=", title)
+    .del();
+};
+
 module.exports = {
   getAllArticles,
   addArticle,
   getArticleByTitle,
-  updateArticle
+  updateArticle,
+  deleteArticle
 };
