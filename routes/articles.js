@@ -3,7 +3,8 @@ const router = express.Router();
 const {
   getAllArticles,
   addArticle,
-  getArticleByTitle
+  getArticleByTitle,
+  updateArticle
 } = require("../db/DS_articles");
 
 module.exports = router;
@@ -23,7 +24,6 @@ router
     });
   })
   .get("/articles/:title", (req, res) => {
-    console.log(req.params);
     getArticleByTitle(req.params.title).then(article => {
       return res.render("article", {
         title: article.article_title,
@@ -33,12 +33,13 @@ router
     });
   })
   .get("/articles/:title/edit", (req, res) => {
-    const formData = allArticles.filter(obj => obj.title === req.params.title);
-    return res.render("edit", {
-      article: true,
-      title: formData[0].title,
-      content: formData[0].content,
-      author: formData[0].author
+    getArticleByTitle(req.params.title).then(article => {
+      return res.render("edit", {
+        article: true,
+        title: article.article_title,
+        content: article.article_content,
+        author: article.article_author
+      });
     });
   });
 
@@ -51,8 +52,11 @@ router.post("/articles", (req, res) => {
 
 router.put("/articles/:title/edit", (req, res) => {
   const { title, content, author } = req.body;
-  newArticleList.updateArticle(title, content, author);
-  return res.redirect(`/articles/${title}`);
+  getArticleByTitle(req.params.title).then(article => {
+    updateArticle(article.article_id, title, content, author).then(() => {
+      return res.redirect(`/articles/${title}`);
+    });
+  });
 });
 
 router.delete("/articles/:title", (req, res) => {

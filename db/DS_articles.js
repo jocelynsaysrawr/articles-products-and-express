@@ -37,8 +37,19 @@ const addArticle = (title, content, author) => {
   });
 };
 
+const updateArticle = (id, title, content, author) => {
+  return knex("article")
+    .where("article_id", "=", id)
+    .update({
+      article_title: title,
+      article_content: content,
+      article_author: author
+    });
+};
+
 module.exports = {
   getAllArticles,
   addArticle,
-  getArticleByTitle
+  getArticleByTitle,
+  updateArticle
 };
