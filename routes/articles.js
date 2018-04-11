@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { ArticleList } = require("../helpers/articles");
-
-const newArticleList = new ArticleList();
-const allArticles = newArticleList.getAllArticles();
+const { getAllArticles } = require("../db/DS_articles");
 
 module.exports = router;
 
@@ -12,7 +9,9 @@ router
     return res.render("index");
   })
   .get("/articles", (req, res) => {
-    return res.render("allArticles", { allArticles });
+    getAllArticles().then(allArticles => {
+      return res.render("allArticles", { allArticles });
+    });
   })
   .get("/articles/new", (req, res) => {
     return res.render("new", {
