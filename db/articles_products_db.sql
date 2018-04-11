@@ -14,7 +14,10 @@ CREATE TABLE product (
     product_sku INTEGER NOT NULL DEFAULT nextval('product_product_sku_seq')
 );
 
-INSERT INTO product 
-VALUES (DEFAULT, 'rice', 3.54, 15),
-    (DEFAULT, 'noodles', 11.65, 25),
-    (DEFAULT, 'popcorn', 8.95, 3);
+CREATE TABLE article (
+    article_id SERIAL PRIMARY KEY,
+    article_title VARCHAR(255) NOT NULL,
+    article_content TEXT NOT NULL,
+    article_author VARCHAR(100) NOT NULL
+);
+
