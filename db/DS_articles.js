@@ -17,6 +17,28 @@ const getAllArticles = () => {
     });
 };
 
+const getArticleByTitle = title => {
+  return knex
+    .select()
+    .from("article")
+    .where({
+      article_title: title
+    })
+    .then(article => {
+      return article[0];
+    });
+};
+
+const addArticle = (title, content, author) => {
+  return knex("article").insert({
+    article_title: title,
+    article_content: content,
+    article_author: author
+  });
+};
+
 module.exports = {
-  getAllArticles
+  getAllArticles,
+  addArticle,
+  getArticleByTitle
 };

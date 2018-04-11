@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { getAllArticles } = require("../db/DS_articles");
+const {
+  getAllArticles,
+  addArticle,
+  getArticleByTitle
+} = require("../db/DS_articles");
 
 module.exports = router;
 
@@ -19,11 +23,13 @@ router
     });
   })
   .get("/articles/:title", (req, res) => {
-    const bodyData = allArticles.filter(obj => obj.title === req.params.title);
-    return res.render("article", {
-      title: bodyData[0].title,
-      content: bodyData[0].content,
-      author: bodyData[0].author
+    console.log(req.params);
+    getArticleByTitle(req.params.title).then(article => {
+      return res.render("article", {
+        title: article.article_title,
+        content: article.article_content,
+        author: article.article_author
+      });
     });
   })
   .get("/articles/:title/edit", (req, res) => {
@@ -38,8 +44,9 @@ router
 
 router.post("/articles", (req, res) => {
   const { title, content, author } = req.body;
-  newArticleList.addArticle(title, content, author);
-  return res.redirect(`/articles/${title}`);
+  addArticle(title, content, author).then(() => {
+    return res.redirect(`/articles/${title}`);
+  });
 });
 
 router.put("/articles/:title/edit", (req, res) => {
