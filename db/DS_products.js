@@ -2,7 +2,7 @@ const { host, user, password, database } = require("../knexLogin");
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: host,
+    host: "18.188.11.23",
     user: user,
     password: password,
     database: database
