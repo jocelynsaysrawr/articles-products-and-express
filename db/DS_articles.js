@@ -1,4 +1,4 @@
-const { host, user, password, database } = require("../knexLogin");
+//const { host, user, password, database } = require("../knexLogin");
 const knex = require("knex")({
   client: "pg",
   connection: {
