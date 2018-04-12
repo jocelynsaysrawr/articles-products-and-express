@@ -3,7 +3,7 @@ const knex = require("knex")({
   client: "pg",
   connection: {
     host: "127.0.0.1",
-    user: "aritcles_products_user",
+    user: "articles_products_user",
     password: "password",
     database: "articles_products_db"
   }
