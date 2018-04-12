@@ -1,10 +1,11 @@
+const { host, user, password, database } = require("../knexLogin");
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
-    user: "articles_products_user",
-    password: "password",
-    database: "articles_products_db"
+    host: host,
+    user: user,
+    password: password,
+    database: database
   }
 });
 
